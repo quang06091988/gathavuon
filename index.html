@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mô Hình Gà Thả - Không Thuốc Không Thúc</title>
+<meta name="description" content="Gà nòi, gà tre nuôi thả vườn, không thuốc, không thúc. Đặt gà qua Zalo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;700&family=Roboto+Slab:wght@800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#16231a;--yolk:#f4b73b;--chalk:#f6f8f1;--line:#d8dfcf;--bg:var(--chalk);--fg:var(--ink);--price:#2f6b3a}
+@media (prefers-color-scheme:dark){:root{--bg:#111a13;--fg:#eef3e8;--line:#2e4231;--price:#8fd06f}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.5 "Be Vietnam Pro",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 120px}
+h1{font:800 clamp(1.7rem,6.5vw,2.5rem)/1.15 "Roboto Slab",Georgia,serif;margin:0 0 18px;text-align:center}
+.video{position:relative;aspect-ratio:16/10;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+ul{list-style:none;margin:22px 0 0;padding:0;border-top:2px solid var(--fg)}
+li{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 0;border-bottom:1px solid var(--line)}
+.name{font:800 1.4rem "Roboto Slab",Georgia,serif}
+.price{font:800 1.7rem "Roboto Slab",Georgia,serif;color:var(--price);white-space:nowrap}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line)}
+.zalo{display:block;max-width:728px;margin:0 auto;text-align:center;background:var(--yolk);color:#16231a;text-decoration:none;font:700 1.2rem "Be Vietnam Pro",sans-serif;padding:16px;border-radius:999px}
+.zalo:hover{filter:brightness(.95)}
+:focus-visible{outline:3px solid var(--yolk);outline-offset:3px}
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Mô Hình Gà Thả - Không Thuốc Không Thúc</h1>
+  <div class="video">
+    <iframe id="vid" src="https://drive.google.com/file/d/1VVmWUzAV13sL-PIzQwh3aHEFR4CNyMnU/preview" title="Video đàn gà thả vườn" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+  <ul id="prices">
+    <li><span class="name">Gà Nòi</span><span class="price">180k</span></li>
+    <li><span class="name">Gà Tre</span><span class="price">160k</span></li>
+  </ul>
+</main>
+<div class="bar"><a class="zalo" id="zalo" href="https://zalo.me/0935662344" target="_blank" rel="noopener">Đặt gà qua Zalo</a></div>
+
+<script>
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRQoqj_zBIPOybsRmR9H58ajvYOCIXAMriW_xmBCA6wibLyfLoawfUjhIfkPWx4vn4L0ZT5j8RS9UGG/pub?gid=945222915&single=true&output=csv";
+
+function parseCSV(t){
+  const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<t.length;i++){
+    const c=t[i];
+    if(q){ if(c==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===","){row.push(cur);cur="";}
+    else if(c==="\n"){row.push(cur);rows.push(row);row=[];cur="";}
+    else if(c!=="\r") cur+=c;
+  }
+  if(cur||row.length){row.push(cur);rows.push(row);}
+  return rows;
+}
+const esc=s=>s.replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+const norm=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/gi,"d").toLowerCase().trim();
+
+async function load(){
+  try{
+    const res=await fetch(SHEET_CSV_URL+"&t="+Date.now()); if(!res.ok) throw 0;
+    const rows=parseCSV(await res.text()).slice(1).filter(r=>r[0]&&r[0].trim());
+    let html="";
+    for(const r of rows){
+      const key=r[0].trim(), val=(r[1]||"").trim(), k=norm(key);
+      if(!val) continue;
+      if(k==="tieu de"){ document.getElementById("title").textContent=val; document.title=val; }
+      else if(k==="video"){ const m=val.match(/\/d\/([\w-]+)/)||val.match(/[?&]id=([\w-]+)/); if(m) document.getElementById("vid").src="https://drive.google.com/file/d/"+m[1]+"/preview"; }
+      else if(k==="zalo"){ document.getElementById("zalo").href="https://zalo.me/"+val.replace(/\D/g,""); }
+      else html+=`<li><span class="name">${esc(key)}</span><span class="price">${esc(val)}</span></li>`;
+    }
+    if(html) document.getElementById("prices").innerHTML=html;
+  }catch(e){ /* lỗi mạng: giữ nội dung mặc định trong trang */ }
+}
+load();
+</script>
+</body>
+</html>
