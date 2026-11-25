@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#12392a">
 <meta name="format-detection" content="telephone=no">
 <title>Mô Hình Gà Thả - Không Thuốc Không Thúc</title>
-<meta name="description" content="Gà nòi, gà tre nuôi thả vườn, không thuốc, không thúc. Xem video và đặt gà qua Zalo.">
+<meta name="description" content="Gà thả vườn tự đẻ, tự ấp, tự dẫn con, tự tách con. Không thuốc, không thúc. Xem video và đặt gà qua Zalo.">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -15,7 +15,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="vi_VN">
 <meta property="og:title" content="Mô Hình Gà Thả - Không Thuốc Không Thúc">
-<meta property="og:description" content="Gà nòi, gà tre nuôi thả vườn. Xem video và đặt gà qua Zalo.">
+<meta property="og:description" content="Câu chuyện vườn gà: tự đẻ, tự ấp, tự dẫn con, tự tách con. Xem video và đặt gà qua Zalo.">
 <meta property="og:url" content="https://gathavuon.vercel.app/">
 <meta property="og:image" content="https://gathavuon.vercel.app/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -24,7 +24,7 @@
 <meta property="og:image:alt" content="Mô Hình Gà Thả - Không Thuốc Không Thúc">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mô Hình Gà Thả - Không Thuốc Không Thúc">
-<meta name="twitter:description" content="Gà nòi, gà tre nuôi thả vườn. Xem video và đặt gà qua Zalo.">
+<meta name="twitter:description" content="Câu chuyện vườn gà: tự đẻ, tự ấp, tự dẫn con, tự tách con. Xem video và đặt gà qua Zalo.">
 <meta name="twitter:image" content="https://gathavuon.vercel.app/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,12 +77,31 @@ h1 .b{color:var(--yolk)}
 .zalo.is-off{opacity:.4;pointer-events:none}
 .zalo.is-off::after{display:none}
 @media (prefers-reduced-motion:reduce){.sk,#prices li.sk{animation:none}}
+
+#story{margin:30px 0 0}
+#story h2{margin:0 0 20px;text-align:center;font:800 clamp(1.7rem,8vw,2.4rem)/1.1 "Baloo 2","Be Vietnam Pro",system-ui,sans-serif;color:var(--yolk);text-wrap:balance}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:30px}
+.step{position:relative;background:var(--paper);color:var(--forest);border-radius:22px}
+.step:not(:last-child)::after{content:"";position:absolute;left:50%;bottom:-30px;width:4px;height:30px;margin-left:-2px;background:repeating-linear-gradient(var(--yolk) 0 7px,transparent 7px 13px)}
+.art{position:relative;aspect-ratio:300/170;border-radius:22px 22px 0 0;overflow:hidden;background:#dff0c8}
+.art svg{display:block;width:100%;height:100%}
+.num{position:absolute;top:12px;left:12px;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--yolk);color:var(--forest);font:800 1.3rem/1 "Baloo 2",sans-serif;box-shadow:0 2px 0 rgba(18,57,42,.25)}
+.step-body{padding:14px 18px 20px;text-align:center}
+.step-title{margin:0 0 4px;font:700 clamp(1.4rem,6vw,1.8rem)/1.1 "Baloo 2","Be Vietnam Pro",sans-serif;color:var(--leaf)}
+.step-desc{margin:0;font-size:1rem;line-height:1.5}
+.closing{margin:34px 0 0;text-align:center;font:800 clamp(1.3rem,6vw,1.8rem)/1.25 "Baloo 2","Be Vietnam Pro",system-ui,sans-serif;color:#fff;text-wrap:balance}
+@media (min-width:640px){.art{aspect-ratio:2/1}}
 </style>
 </head>
 <body>
 <main>
   <h1 id="title" aria-busy="true"><span class="sk sk-t"></span><span class="sk sk-t s"></span></h1>
   <div class="video sk" id="video"></div>
+  <section id="story" hidden>
+    <h2 id="story-title"></h2>
+    <ol class="steps" id="steps"></ol>
+    <p class="closing" id="closing" hidden></p>
+  </section>
   <ul id="prices"><li class="sk"></li><li class="sk"></li></ul>
   <div class="err" id="err" role="alert" hidden>
     <div>Không tải được dữ liệu. Kiểm tra mạng rồi thử lại.</div>
@@ -95,6 +114,86 @@ h1 .b{color:var(--yolk)}
     Đặt gà qua Zalo
   </a>
 </div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="hen" viewBox="0 0 100 90">
+    <path d="M18 48 Q2 30 8 14 Q20 26 28 40Z" fill="#8a3f1f"/>
+    <path d="M16 54 Q-2 46 0 28 Q14 34 24 48Z" fill="#a8532a"/>
+    <ellipse cx="46" cy="54" rx="32" ry="24" fill="#c8743d"/>
+    <ellipse cx="40" cy="56" rx="17" ry="11" fill="#a8532a"/>
+    <path d="M68 48 Q72 32 78 34 L88 42 Q80 52 68 54Z" fill="#c8743d"/>
+    <circle cx="80" cy="28" r="13" fill="#d98450"/>
+    <circle cx="76" cy="14" r="4.5" fill="#e23b3b"/><circle cx="82" cy="12" r="4.5" fill="#e23b3b"/><circle cx="88" cy="16" r="4" fill="#e23b3b"/>
+    <path d="M91 25 L103 30 L91 34Z" fill="#ffb02e"/>
+    <ellipse cx="88" cy="38" rx="3.5" ry="5" fill="#e23b3b"/>
+    <circle cx="84" cy="26" r="2" fill="#12392a"/>
+    <path d="M42 76V88M52 76V88M42 88h-5M52 88h-5" stroke="#ffb02e" stroke-width="3" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="chick" viewBox="0 0 40 36">
+    <ellipse cx="17" cy="22" rx="12" ry="10" fill="#ffd84d"/>
+    <ellipse cx="14" cy="22" rx="6" ry="4" fill="#f2bd2c"/>
+    <circle cx="28" cy="12" r="8" fill="#ffe27a"/>
+    <path d="M35 11L40 13L35 15Z" fill="#ff9f1c"/>
+    <circle cx="30" cy="10.5" r="1.4" fill="#12392a"/>
+    <path d="M15 32V35M21 32V35" stroke="#ff9f1c" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="egg" viewBox="0 0 20 26">
+    <ellipse cx="10" cy="14" rx="8" ry="11" fill="#fff6e0" stroke="#e0cfa6" stroke-width="1.5"/>
+  </symbol>
+  <symbol id="nest" viewBox="0 0 60 20">
+    <ellipse cx="30" cy="11" rx="29" ry="9" fill="#b98a3e"/>
+    <path d="M6 10Q30 20 54 10M10 14Q30 22 50 14M14 6Q30 12 46 6" stroke="#8a6425" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="grass" viewBox="0 0 24 16">
+    <path d="M3 16Q4 8 1 3Q7 7 8 16M9 16Q10 5 12 0Q15 6 15 16M16 16Q17 9 22 4Q21 11 21 16" fill="#3f8a3f"/>
+  </symbol>
+</defs></svg>
+
+<template id="scenes">
+  <svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gà mẹ đẻ trứng trong ổ rơm giữa vườn">
+    <rect width="300" height="170" fill="#dff0c8"/><circle cx="258" cy="34" r="16" fill="#ffc533"/>
+    <path d="M0 118Q80 104 160 114T300 110V170H0Z" fill="#7bb661"/><path d="M0 140Q90 128 170 138T300 134V170H0Z" fill="#5fa04b"/>
+    <use href="#grass" x="20" y="132" width="26" height="17"/><use href="#grass" x="262" y="136" width="26" height="17"/>
+    <use href="#hen" x="40" y="60" width="112" height="101"/>
+    <use href="#nest" x="168" y="126" width="76" height="25"/>
+    <use href="#egg" x="195" y="108" width="22" height="29"/>
+    <path d="M232 98l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#ffc533"/><path d="M176 92l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#ffc533"/>
+  </svg>
+  <svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gà mẹ nằm ấp trứng trong ổ">
+    <rect width="300" height="170" fill="#dff0c8"/><circle cx="258" cy="34" r="16" fill="#ffc533"/>
+    <path d="M0 118Q80 104 160 114T300 110V170H0Z" fill="#7bb661"/><path d="M0 140Q90 128 170 138T300 134V170H0Z" fill="#5fa04b"/>
+    <use href="#hen" x="90" y="46" width="120" height="108"/>
+    <circle cx="190.8" cy="79.2" r="3.4" fill="#d98450"/><path d="M187 79.5Q191 83 195 79.5" stroke="#12392a" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <use href="#nest" x="82" y="128" width="136" height="32"/>
+    <use href="#egg" x="64" y="136" width="18" height="23"/><use href="#egg" x="218" y="138" width="18" height="23"/>
+    <g stroke="#ffc533" stroke-width="3" fill="none" stroke-linecap="round"><path d="M120 38q-6-6 0-12t0-12"/><path d="M150 34q-6-6 0-12t0-12"/><path d="M178 38q-6-6 0-12t0-12"/></g>
+  </svg>
+  <svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gà mẹ dẫn đàn gà con đi kiếm mồi trong vườn">
+    <rect width="300" height="170" fill="#dff0c8"/><circle cx="258" cy="34" r="16" fill="#ffc533"/>
+    <path d="M0 118Q80 104 160 114T300 110V170H0Z" fill="#7bb661"/><path d="M0 140Q90 128 170 138T300 134V170H0Z" fill="#5fa04b"/>
+    <use href="#grass" x="150" y="134" width="26" height="17"/><use href="#grass" x="52" y="140" width="26" height="17"/>
+    <use href="#chick" x="12" y="124" width="36" height="32"/><use href="#chick" x="52" y="120" width="36" height="32"/>
+    <use href="#chick" x="92" y="126" width="36" height="32"/><use href="#chick" x="130" y="121" width="36" height="32"/>
+    <use href="#hen" x="172" y="58" width="108" height="97"/>
+  </svg>
+  <svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Gà mẹ đứng lại, đàn con lớn tự đi ra xa">
+    <rect width="300" height="170" fill="#dff0c8"/><circle cx="258" cy="34" r="16" fill="#ffc533"/>
+    <path d="M0 118Q80 104 160 114T300 110V170H0Z" fill="#7bb661"/><path d="M0 140Q90 128 170 138T300 134V170H0Z" fill="#5fa04b"/>
+    <use href="#grass" x="120" y="138" width="26" height="17"/>
+    <use href="#hen" x="14" y="70" width="92" height="83"/>
+    <path d="M114 118Q150 96 188 112" stroke="#fffdf5" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round" fill="none"/>
+    <use href="#chick" x="160" y="86" width="50" height="45"/><use href="#chick" x="212" y="104" width="52" height="47"/><use href="#chick" x="246" y="76" width="44" height="40"/>
+  </svg>
+  <svg viewBox="0 0 300 170" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Đàn gà lớn chạy nhảy tự do trong vườn có hàng rào">
+    <rect width="300" height="170" fill="#dff0c8"/><circle cx="150" cy="30" r="16" fill="#ffc533"/>
+    <g fill="#b98a3e"><rect x="6" y="68" width="14" height="46" rx="3"/><rect x="46" y="68" width="14" height="46" rx="3"/><rect x="86" y="68" width="14" height="46" rx="3"/><rect x="126" y="68" width="14" height="46" rx="3"/><rect x="166" y="68" width="14" height="46" rx="3"/><rect x="206" y="68" width="14" height="46" rx="3"/><rect x="246" y="68" width="14" height="46" rx="3"/><rect x="0" y="80" width="300" height="6"/><rect x="0" y="98" width="300" height="6"/></g>
+    <path d="M0 118Q80 104 160 114T300 110V170H0Z" fill="#7bb661"/><path d="M0 140Q90 128 170 138T300 134V170H0Z" fill="#5fa04b"/>
+    <use href="#grass" x="110" y="142" width="26" height="17"/><use href="#grass" x="262" y="140" width="26" height="17"/>
+    <use href="#hen" x="22" y="76" width="82" height="74"/>
+    <use href="#hen" x="112" y="92" width="62" height="56"/>
+    <g transform="translate(284 80) scale(-1 1)"><use href="#hen" x="0" y="0" width="86" height="77"/></g>
+  </svg>
+</template>
 
 <script>
 const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRQoqj_zBIPOybsRmR9H58ajvYOCIXAMriW_xmBCA6wibLyfLoawfUjhIfkPWx4vn4L0ZT5j8RS9UGG/pub?gid=945222915&single=true&output=csv";
@@ -133,16 +232,54 @@ function toRows(text){
   return parseCSV(text).slice(1).map(r=>[(r[0]||"").trim(),(r[1]||"").trim()]).filter(r=>r[0]&&r[1]);
 }
 
+const DEFAULT_STORY={
+  title:"Câu chuyện vườn gà",
+  steps:[
+    "Gà mẹ tự đẻ | Đẻ ngay trong vườn, theo nhịp riêng của gà, không kích không ép.",
+    "Tự ấp | Gà mẹ tự ấp trứng, đủ ngày đủ tháng mới nở.",
+    "Tự dẫn con | Gà mẹ dẫn đàn con đi bới, đi mồi, tập chạy ngoài vườn.",
+    "Tự tách con | Con đủ lớn, gà mẹ tự tách đàn, gà con tự lập.",
+    "Lớn ngoài vườn | Chạy nhảy, bới mồi giữa vườn, lớn đều theo nhịp của gà."
+  ],
+  closing:"Muốn có gà như vậy? Nhắn Zalo cho mình nhé."
+};
+
+function renderStory(storyTitle,stepVals,closing){
+  const sec=$("story"), scenes=$("scenes").content.children;
+  if(!stepVals.length){ stepVals=DEFAULT_STORY.steps; storyTitle=storyTitle||DEFAULT_STORY.title; closing=closing||DEFAULT_STORY.closing; }
+  $("story-title").textContent=storyTitle||DEFAULT_STORY.title;
+  const ol=$("steps"); ol.textContent="";
+  stepVals.forEach((val,i)=>{
+    const parts=val.split("|"), name=parts[0].trim(), desc=parts.slice(1).join("|").trim();
+    const li=document.createElement("li"); li.className="step";
+    if(scenes[i]){
+      const art=document.createElement("div"); art.className="art";
+      art.append(scenes[i].cloneNode(true), el("span","num",String(i+1)));
+      li.append(art);
+    }
+    const body=document.createElement("div"); body.className="step-body";
+    body.append(el("h3","step-title",name));
+    if(desc) body.append(el("p","step-desc",desc));
+    li.append(body); ol.append(li);
+  });
+  const c=$("closing"); c.textContent=closing||""; c.hidden=!closing;
+  sec.hidden=false;
+}
+
 function render(rows){
-  let pageName="",title="",video="",zalo="";const items=[];
+  let pageName="",title="",video="",zalo="",storyTitle="",closing="";const items=[],steps=[];
   for(const [key,val] of rows){
-    const k=norm(key);
+    const k=norm(key), m=k.match(/^buoc\s*(\d+)$/);
     if(k==="ten trang") pageName=val;
     else if(k==="tieu de") title=val;
     else if(k==="video") video=val;
     else if(k==="zalo") zalo=val;
+    else if(m) steps.push([+m[1],val]);
+    else if(k==="tieu de phan") storyTitle=val;
+    else if(k==="cau chot") closing=val;
     else items.push([key,val]);
   }
+  renderStory(storyTitle,steps.sort((a,b)=>a[0]-b[0]).map(s=>s[1]),closing);
 
   const h=$("title"); h.textContent=""; h.removeAttribute("aria-busy");
   if(title){
@@ -178,12 +315,13 @@ function render(rows){
 
 function showLoading(){
   $("err").hidden=true;
+  $("story").hidden=true;
   const h=$("title"); h.innerHTML=SKELETON.title; h.hidden=false; h.setAttribute("aria-busy","true");
   const box=$("video"); const f=box.querySelector("iframe"); if(f) f.remove(); box.classList.add("sk"); box.hidden=false;
   const list=$("prices"); list.innerHTML=SKELETON.prices; list.hidden=false;
 }
 function showError(){
-  $("title").hidden=true; $("video").hidden=true; $("prices").hidden=true; $("err").hidden=false;
+  $("title").hidden=true; $("video").hidden=true; $("story").hidden=true; $("prices").hidden=true; $("err").hidden=false;
 }
 
 async function load(){
